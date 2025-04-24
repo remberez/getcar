@@ -4,7 +4,7 @@ from enum import Enum
 
 from fastapi_users_db_sqlalchemy import SQLAlchemyBaseUserTable
 from sqlalchemy import DateTime, Enum as SQLEnum, Numeric, ForeignKey, String
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 
 
 class UserRoles(Enum):
@@ -28,9 +28,13 @@ class UserModel(Base, IntegerIDMixin, SQLAlchemyBaseUserTable[int]):
     role: Mapped[UserRoles] = mapped_column(SQLEnum(UserRoles))
     balance: Mapped[Decimal] = mapped_column(Numeric(12, 2))
 
+    bans: Mapped[list["BanLogModel"]] = relationship(back_populates="user")
+
 
 class BanLogModel(Base, IntegerIDMixin):
     user_id: Mapped[int] = mapped_column(ForeignKey("user.id", ondelete="CASCADE"))
     reason: Mapped[str] = mapped_column(String(250))
     date_start: Mapped[datetime] = mapped_column(DateTime(timezone=True))
     date_end: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+
+    user: Mapped["UserModel"] = relationship(back_populates="bans")

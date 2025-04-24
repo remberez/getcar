@@ -32,6 +32,8 @@ class UserModel(Base, IntegerIDMixin, SQLAlchemyBaseUserTable[int]):
 
 
 class BanLogModel(Base, IntegerIDMixin):
+    __tablename__ = "ban_log"
+
     user_id: Mapped[int] = mapped_column(ForeignKey("user.id", ondelete="CASCADE"))
     reason: Mapped[str] = mapped_column(String(250))
     date_start: Mapped[datetime] = mapped_column(DateTime(timezone=True))

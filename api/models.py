@@ -40,3 +40,9 @@ class BanLogModel(Base, IntegerIDMixin):
     date_end: Mapped[datetime] = mapped_column(DateTime(timezone=True))
 
     user: Mapped["UserModel"] = relationship(back_populates="bans")
+
+
+class CarBrand(Base, IntegerIDMixin):
+    __tablename__ = "car_brand"
+
+    name: Mapped[str] = mapped_column(String(32))

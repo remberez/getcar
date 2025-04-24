@@ -27,3 +27,10 @@ class UserModel(Base, IntegerIDMixin, SQLAlchemyBaseUserTable[int]):
     updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
     role: Mapped[UserRoles] = mapped_column(SQLEnum(UserRoles))
     balance: Mapped[Decimal] = mapped_column(Numeric(12, 2))
+
+
+class BanLogModel(Base, IntegerIDMixin):
+    user_id: Mapped[int] = mapped_column(ForeignKey("user.id", ondelete="CASCADE"))
+    reason: Mapped[str] = mapped_column(String(250))
+    date_start: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    date_end: Mapped[datetime] = mapped_column(DateTime(timezone=True))

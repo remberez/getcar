@@ -30,6 +30,7 @@ class UserModel(Base, IntegerIDMixin, SQLAlchemyBaseUserTable[int]):
 
     bans: Mapped[list["BanLogModel"]] = relationship(back_populates="user")
     reviews: Mapped[list["CarReviewModel"]] = relationship(back_populates="user")
+    bookings: Mapped[list["Booking"]] = relationship(back_populates="user")
 
 
 class BanLogModel(Base, IntegerIDMixin):
@@ -105,6 +106,7 @@ class CarModel(Base, IntegerIDMixin):
     drive: Mapped["DriveTypeModel"] = relationship(back_populates="cars")
     images: Mapped[list["CarImageModel"]] = relationship(back_populates="car")
     reviews: Mapped[list["CarReviewModel"]] = relationship(back_populates="car")
+    bookings: Mapped[list["Booking"]] = relationship(back_populates="car")
 
 
 class CarImageModel(Base, IntegerIDMixin):
@@ -126,3 +128,15 @@ class CarReviewModel(Base, IntegerIDMixin):
 
     user: Mapped["UserModel"] = relationship(back_populates="reviews")
     car: Mapped["CarModel"] = relationship(back_populates="reviews")
+
+
+class Booking(Base, IntegerIDMixin):
+    __tablename__ = "booking"
+
+    user_id: Mapped[int] = mapped_column(ForeignKey("user.id", ondelete="SET NULL"))
+    car_id: Mapped[int] = mapped_column(ForeignKey("car.id", ondelete="SET NULL"))
+    date_start: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    date_end: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+
+    user: Mapped["UserModel"] = relationship(back_populates="bookings")
+    car: Mapped["CarModel"] = relationship(back_populates="bookings")

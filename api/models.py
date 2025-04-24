@@ -29,6 +29,7 @@ class UserModel(Base, IntegerIDMixin, SQLAlchemyBaseUserTable[int]):
     balance: Mapped[Decimal] = mapped_column(Numeric(12, 2))
 
     bans: Mapped[list["BanLogModel"]] = relationship(back_populates="user")
+    reviews: Mapped[list["CarReviewModel"]] = relationship(back_populates="user")
 
 
 class BanLogModel(Base, IntegerIDMixin):
@@ -103,6 +104,7 @@ class CarModel(Base, IntegerIDMixin):
     engine_type: Mapped["EngineTypeModel"] = relationship(back_populates="cars")
     drive: Mapped["DriveTypeModel"] = relationship(back_populates="cars")
     images: Mapped[list["CarImageModel"]] = relationship(back_populates="car")
+    reviews: Mapped[list["CarReviewModel"]] = relationship(back_populates="car")
 
 
 class CarImageModel(Base, IntegerIDMixin):
@@ -112,3 +114,15 @@ class CarImageModel(Base, IntegerIDMixin):
     car_id: Mapped[int] = mapped_column(ForeignKey("car.id"))
 
     car: Mapped["CarModel"] = relationship(back_populates="images")
+
+
+class CarReviewModel(Base, IntegerIDMixin):
+    __tablename__ = "car_review"
+
+    user_id: Mapped[int] = mapped_column(ForeignKey("user.id", ondelete="SET NULL"))
+    car_id: Mapped[int] = mapped_column(ForeignKey("car.id", ondelete="CASCADE"))
+    review_text: Mapped[str]
+    image_url: Mapped[str] = mapped_column(String(32))
+
+    user: Mapped["UserModel"] = relationship(back_populates="reviews")
+    car: Mapped["CarModel"] = relationship(back_populates="reviews")

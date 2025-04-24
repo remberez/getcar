@@ -47,17 +47,23 @@ class CarBrand(Base, IntegerIDMixin):
 
     name: Mapped[str] = mapped_column(String(32))
 
+    cars: Mapped[list["CarModel"]] = relationship(back_populates="car_brand")
+
 
 class TransmissionModel(Base, IntegerIDMixin):
     __tablename__ = "transmission"
 
     name: Mapped[str] = mapped_column(String(32))
 
+    cars: Mapped[list["CarModel"]] = relationship(back_populates="transmission")
+
 
 class CarBodyModel(Base, IntegerIDMixin):
     __tablename__ = "car_body"
 
     name: Mapped[str] = mapped_column(String(32))
+
+    cars: Mapped[list["CarModel"]] = relationship(back_populates="body")
 
 
 class EngineTypeModel(Base, IntegerIDMixin):
@@ -66,9 +72,33 @@ class EngineTypeModel(Base, IntegerIDMixin):
 
     name: Mapped[str] = mapped_column(String(32))
 
+    cars: Mapped[list["CarModel"]] = relationship(back_populates="engine")
+
 
 class DriveTypeModel(Base, IntegerIDMixin):
     # Тип привода
     __tablename__ = "drive_type"
 
     name: Mapped[str] = mapped_column(String(32))
+
+    cars: Mapped[list["CarModel"]] = relationship(back_populates="drive")
+
+
+class CarModel(Base, IntegerIDMixin):
+    __tablename__ = "car"
+
+    car_brand_id: Mapped[int] = mapped_column(ForeignKey("car_brand.id", ondelete="CASCADE"))
+    model: Mapped[str] = mapped_column(String(32))
+    transmission_id: Mapped[int] = mapped_column(ForeignKey("transmission.id", ondelete="CASCADE"))
+    body_id: Mapped[int] = mapped_column(ForeignKey("car_body.id", ondelete="CASCADE"))
+    year_of_issue: Mapped[int] = mapped_column(DateTime(timezone=True))
+    engine_type_id: Mapped[int] = mapped_column(ForeignKey("engine_type.id", ondelete="CASCADE"))
+    drive_id: Mapped[int] = mapped_column(ForeignKey("drive_type.id", ondelete="CASCADE"))
+    mileage: Mapped[int]
+    price: Mapped[Decimal] = mapped_column(Numeric(12, 2))
+
+    car_brand: Mapped["CarBrand"] = relationship(back_populates="cars")
+    transmission: Mapped["TransmissionModel"] = relationship(back_populates="cars")
+    body: Mapped["CarBodyModel"] = relationship(back_populates="cars")
+    engine_type: Mapped["EngineTypeModel"] = relationship(back_populates="cars")
+    drive: Mapped["DriveTypeModel"] = relationship(back_populates="cars")

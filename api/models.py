@@ -61,6 +61,14 @@ class CarBodyModel(Base, IntegerIDMixin):
 
 
 class EngineTypeModel(Base, IntegerIDMixin):
+    # Тип двигателя
     __tablename__ = "engine_type"
+
+    name: Mapped[str] = mapped_column(String(32))
+
+
+class DriveTypeModel(Base, IntegerIDMixin):
+    # Тип привода
+    __tablename__ = "drive_type"
 
     name: Mapped[str] = mapped_column(String(32))

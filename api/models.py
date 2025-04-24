@@ -102,3 +102,13 @@ class CarModel(Base, IntegerIDMixin):
     body: Mapped["CarBodyModel"] = relationship(back_populates="cars")
     engine_type: Mapped["EngineTypeModel"] = relationship(back_populates="cars")
     drive: Mapped["DriveTypeModel"] = relationship(back_populates="cars")
+    images: Mapped[list["CarImageModel"]] = relationship(back_populates="car")
+
+
+class CarImageModel(Base, IntegerIDMixin):
+    __tablename__ = "car_image"
+
+    image_url: Mapped[str] = mapped_column(String(32))
+    car_id: Mapped[int] = mapped_column(ForeignKey("car.id"))
+
+    car: Mapped["CarModel"] = relationship(back_populates="images")

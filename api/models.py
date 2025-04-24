@@ -52,3 +52,9 @@ class TransmissionModel(Base, IntegerIDMixin):
     __tablename__ = "transmission"
 
     name: Mapped[str] = mapped_column(String(32))
+
+
+class CarBodyModel(Base, IntegerIDMixin):
+    __tablename__ = "car_body"
+
+    name: Mapped[str] = mapped_column(String(32))

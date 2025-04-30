@@ -3,7 +3,9 @@ from decimal import Decimal
 from enum import Enum
 
 from fastapi_users_db_sqlalchemy import SQLAlchemyBaseUserTable
-from sqlalchemy import DateTime, Enum as SQLEnum, Numeric, ForeignKey, String
+from fastapi_users_db_sqlalchemy.access_token import SQLAlchemyBaseAccessTokenTable, SQLAlchemyAccessTokenDatabase
+from sqlalchemy import DateTime, Enum as SQLEnum, Numeric, ForeignKey, String, Integer
+from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 
 
@@ -140,3 +142,15 @@ class Booking(Base, IntegerIDMixin):
 
     user: Mapped["UserModel"] = relationship(back_populates="bookings")
     car: Mapped["CarModel"] = relationship(back_populates="bookings")
+
+
+class AccessTokenModel(Base, SQLAlchemyBaseAccessTokenTable[int]):
+    user_id: Mapped[int] = mapped_column(
+        Integer,
+        ForeignKey("user.id", ondelete="cascade"),
+        nullable=True,
+    )
+
+    @classmethod
+    def get_db(cls, session: AsyncSession):
+        return SQLAlchemyAccessTokenDatabase(session, cls)

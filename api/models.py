@@ -2,7 +2,7 @@ from datetime import datetime
 from decimal import Decimal
 from enum import Enum
 
-from fastapi_users_db_sqlalchemy import SQLAlchemyBaseUserTable
+from fastapi_users_db_sqlalchemy import SQLAlchemyBaseUserTable, SQLAlchemyUserDatabase
 from fastapi_users_db_sqlalchemy.access_token import SQLAlchemyBaseAccessTokenTable, SQLAlchemyAccessTokenDatabase
 from sqlalchemy import DateTime, Enum as SQLEnum, Numeric, ForeignKey, String, Integer
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -33,6 +33,10 @@ class UserModel(Base, IntegerIDMixin, SQLAlchemyBaseUserTable[int]):
     bans: Mapped[list["BanLogModel"]] = relationship(back_populates="user")
     reviews: Mapped[list["CarReviewModel"]] = relationship(back_populates="user")
     bookings: Mapped[list["Booking"]] = relationship(back_populates="user")
+
+    @classmethod
+    def get_db(cls, session: AsyncSession):
+        return SQLAlchemyUserDatabase(session, cls)
 
 
 class BanLogModel(Base, IntegerIDMixin):

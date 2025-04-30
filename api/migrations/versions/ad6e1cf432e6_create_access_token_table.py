@@ -8,6 +8,7 @@ Create Date: 2025-04-30 20:17:54.562043
 
 from typing import Sequence, Union
 
+import fastapi_users_db_sqlalchemy
 from alembic import op
 import sqlalchemy as sa
 

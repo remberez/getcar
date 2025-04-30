@@ -4,7 +4,7 @@ from enum import Enum
 
 from fastapi_users_db_sqlalchemy import SQLAlchemyBaseUserTable, SQLAlchemyUserDatabase
 from fastapi_users_db_sqlalchemy.access_token import SQLAlchemyBaseAccessTokenTable, SQLAlchemyAccessTokenDatabase
-from sqlalchemy import DateTime, Enum as SQLEnum, Numeric, ForeignKey, String, Integer
+from sqlalchemy import DateTime, Enum as SQLEnum, Numeric, ForeignKey, String, Integer, func
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 
@@ -25,10 +25,19 @@ class IntegerIDMixin:
 class UserModel(Base, IntegerIDMixin, SQLAlchemyBaseUserTable[int]):
     phone: Mapped[str]
     full_name: Mapped[str]
-    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
-    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
-    role: Mapped[UserRoles] = mapped_column(SQLEnum(UserRoles))
-    balance: Mapped[Decimal] = mapped_column(Numeric(12, 2))
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        server_default=func.now(),
+        nullable=False,
+    )
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        server_default=func.now(),
+        onupdate=func.now(),
+        nullable=False,
+    )
+    role: Mapped[UserRoles] = mapped_column(SQLEnum(UserRoles), default=UserRoles.USER)
+    balance: Mapped[Decimal] = mapped_column(Numeric(12, 2), default="0.00")
 
     bans: Mapped[list["BanLogModel"]] = relationship(back_populates="user")
     reviews: Mapped[list["CarReviewModel"]] = relationship(back_populates="user")
@@ -80,7 +89,7 @@ class EngineTypeModel(Base, IntegerIDMixin):
 
     name: Mapped[str] = mapped_column(String(32))
 
-    cars: Mapped[list["CarModel"]] = relationship(back_populates="engine")
+    cars: Mapped[list["CarModel"]] = relationship(back_populates="engine_type")
 
 
 class DriveTypeModel(Base, IntegerIDMixin):

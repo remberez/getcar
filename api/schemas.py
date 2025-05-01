@@ -183,17 +183,6 @@ class CarUpdateSchema(BaseModel):
     trunk_volume: Optional[int] = Field(None, ge=0, description="Объем багажника (л)")
 
 
-class CarReadSchema(CarBaseSchema):
-    id: int
-    car_brand: CarBrandReadSchema
-    transmission: TransmissionReadSchema
-    body: CarBodyReadSchema
-    engine_type: EngineTypeReadSchema
-    drive: DriveTypeReadSchema
-    rental_class: RentalClassReadSchema
-    model_config = ConfigDict(from_attributes=True)
-
-
 class CarImageBaseSchema(BaseModel):
     image_url: str = Field(..., description="URL изображения")
     car_id: int = Field(..., description="ID автомобиля")
@@ -208,3 +197,15 @@ class CarImageReadSchema(CarImageBaseSchema):
 
     class Config:
         from_attributes = True
+
+
+class CarReadSchema(CarBaseSchema):
+    id: int
+    car_brand: CarBrandReadSchema
+    transmission: TransmissionReadSchema
+    body: CarBodyReadSchema
+    engine_type: EngineTypeReadSchema
+    drive: DriveTypeReadSchema
+    rental_class: RentalClassReadSchema
+    images: list[CarImageReadSchema]
+    model_config = ConfigDict(from_attributes=True)

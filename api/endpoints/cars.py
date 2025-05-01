@@ -86,6 +86,7 @@ async def get_all_cars(
         selectinload(CarModel.engine_type),
         selectinload(CarModel.drive),
         selectinload(CarModel.rental_class),
+        selectinload(CarModel.images)
     )
 
     if brand_id:
@@ -122,6 +123,7 @@ async def get_car(
             selectinload(CarModel.engine_type),
             selectinload(CarModel.drive),
             selectinload(CarModel.rental_class),
+            selectinload(CarModel.images)
         )
     )
     car = result.scalars().first()

@@ -1,5 +1,5 @@
 import { makeAutoObservable } from "mobx";
-import AuthService from "../services/AuthService";
+import authService from "../serives/authService";
 
 class AuthStore {
     isAuth = false;
@@ -23,7 +23,7 @@ class AuthStore {
     }
 
     async setUser() {
-        const data = await AuthService.fetchMe();
+        const data = await authService.fetchMe();
         if (data) {
             this.user = data;
             this.setIsAuth(true);

@@ -19,6 +19,15 @@ class CarService {
             console.error(error);
         }
     }
+
+    async deleteCar({id}) {
+        try {
+            const response = await api.delete(`/cars/${id}`);
+            return response;
+        } catch (error) {
+            console.error(error);
+        }
+    }
 }
 
 const carService = new CarService();

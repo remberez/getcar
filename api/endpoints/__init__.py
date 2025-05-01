@@ -6,6 +6,7 @@ from .car_brand import router as car_brand_router
 from .transmission import router as transmission_router
 from .car_body import router as car_body_router
 from .engine_type import router as engine_type_router
+from .drive_type import router as drive_type_router
 
 router = APIRouter(prefix="/api")
 
@@ -16,3 +17,4 @@ router.include_router(router=car_brand_router)
 router.include_router(router=transmission_router)
 router.include_router(router=car_body_router)
 router.include_router(router=engine_type_router)
+router.include_router(router=drive_type_router)

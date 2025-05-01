@@ -3,6 +3,7 @@ class ProjectSettings:
     server_reload: bool = True
     server_host: str = "localhost"
     server_port: str = 8000
+    media_root: str = "static/media"
 
 
 settings = ProjectSettings()

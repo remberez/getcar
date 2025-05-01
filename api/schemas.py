@@ -23,7 +23,8 @@ class UserCreateSchema(schemas.BaseUserCreate):
     full_name: str
 
 
-class UserUpdateSchema(schemas.BaseUserUpdate):
+class UserUpdateSchema(BaseModel):
+    email: Optional[str] = None
     phone: Optional[str] = None
     full_name: Optional[str] = None
 

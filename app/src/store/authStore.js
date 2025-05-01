@@ -4,6 +4,7 @@ import authService from "../serives/authService";
 class AuthStore {
     isAuth = false;
     user = {};
+    isLoading = null;
 
     constructor() {
         makeAutoObservable(this);
@@ -23,13 +24,21 @@ class AuthStore {
     }
 
     async setUser() {
-        const data = await authService.fetchMe();
-        if (data) {
-            this.user = data;
-            this.setIsAuth(true);
-        } else {
-            this.setIsAuth(false);
+        this.isLoading = true;
+        try {
+            const data = await authService.fetchMe();
+            if (data) {
+                this.user = data;
+                this.setIsAuth(true);
+            } else {
+                this.user = {};
+                this.setIsAuth(false);
+            }
+        } catch {
             this.user = {};
+            this.setIsAuth(false);
+        } finally {
+            this.isLoading = false;
         }
     }
 }

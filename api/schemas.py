@@ -104,3 +104,30 @@ class CarBodyReadSchema(CarBodyBaseSchema):
 
     class Config:
         from_attributes = True
+
+
+class EngineTypeBaseSchema(BaseModel):
+    name: str = Field(
+        ...,
+        max_length=32,
+        description="Название типа двигателя"
+    )
+
+
+class EngineTypeCreateSchema(EngineTypeBaseSchema):
+    pass
+
+
+class EngineTypeUpdateSchema(BaseModel):
+    name: Optional[str] = Field(
+        None,
+        max_length=32,
+        description="Новое название типа двигателя"
+    )
+
+
+class EngineTypeReadSchema(EngineTypeBaseSchema):
+    id: int = Field(..., description="Идентификатор типа двигателя")
+
+    class Config:
+        from_attributes = True

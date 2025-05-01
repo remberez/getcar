@@ -5,6 +5,8 @@ import SearchPage from "./pages/SearchPage"
 import LoginPage from "./pages/LoginPage"
 import ProfilePage from "./pages/ProfilePage"
 import TopUpPage from "./pages/ToUpPage"
+import AdminLayout from "./components/AdminLayout"
+import CarsAdmin from "./pages/CarsAdmin"
 
 function App() {
   return (
@@ -15,6 +17,10 @@ function App() {
         <Route path="/login" element={<LoginPage/>} />
         <Route path="/profile" element={<ProfilePage/>}/>
         <Route path="/update-balance" element={<TopUpPage/>}/>
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route path="cars" element={<CarsAdmin />} />
+          {/* <Route path="users" element={<UsersAdmin />} /> */}
+        </Route>
       </Route>
     </Routes>
   )

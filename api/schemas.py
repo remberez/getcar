@@ -4,7 +4,7 @@ from decimal import Decimal
 from typing import Optional
 
 from fastapi_users import schemas
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 
 from models import UserRoles
 
@@ -147,3 +147,42 @@ class DriveTypeCreateSchema(DriveTypeBaseSchema):
 
 class DriveTypeUpdateSchema(DriveTypeBaseSchema):
     ...
+
+
+class CarBaseSchema(BaseModel):
+    car_brand_id: int = Field(..., description="ID бренда автомобиля")
+    model: str = Field(..., max_length=32, description="Модель автомобиля")
+    transmission_id: int = Field(..., description="ID типа трансмиссии")
+    body_id: int = Field(..., description="ID типа кузова")
+    year_of_issue: datetime = Field(..., description="Год выпуска")
+    engine_type_id: int = Field(..., description="ID типа двигателя")
+    drive_id: int = Field(..., description="ID типа привода")
+    mileage: int = Field(..., ge=0, description="Пробег (км)")
+    price: Decimal = Field(..., gt=0, max_digits=12, decimal_places=2, description="Цена аренды в сутки")
+    rental_class_id: int = Field(..., description="ID класса аренды")
+    number_of_seats: Optional[int] = Field(None, ge=1, le=10, description="Количество мест")
+    trunk_volume: Optional[int] = Field(None, ge=0, description="Объем багажника (л)")
+
+
+class CarCreateSchema(CarBaseSchema):
+    pass
+
+
+class CarUpdateSchema(BaseModel):
+    car_brand_id: Optional[int] = Field(None, description="ID бренда автомобиля")
+    model: Optional[str] = Field(None, max_length=32, description="Модель автомобиля")
+    transmission_id: Optional[int] = Field(None, description="ID типа трансмиссии")
+    body_id: Optional[int] = Field(None, description="ID типа кузова")
+    year_of_issue: Optional[datetime] = Field(None, description="Год выпуска")
+    engine_type_id: Optional[int] = Field(None, description="ID типа двигателя")
+    drive_id: Optional[int] = Field(None, description="ID типа привода")
+    mileage: Optional[int] = Field(None, ge=0, description="Пробег (км)")
+    price: Optional[Decimal] = Field(None, gt=0, max_digits=12, decimal_places=2, description="Цена аренды в сутки")
+    rental_class_id: Optional[int] = Field(None, description="ID класса аренды")
+    number_of_seats: Optional[int] = Field(None, ge=1, le=10, description="Количество мест")
+    trunk_volume: Optional[int] = Field(None, ge=0, description="Объем багажника (л)")
+
+
+class CarReadSchema(CarBaseSchema):
+    id: int
+    model_config = ConfigDict(from_attributes=True)

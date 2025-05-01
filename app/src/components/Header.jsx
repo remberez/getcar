@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-export const Header = () => {
+const Header = () => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
 
   return (
@@ -59,3 +59,5 @@ export const Header = () => {
     </header>
   );
 };
+
+export default Header;

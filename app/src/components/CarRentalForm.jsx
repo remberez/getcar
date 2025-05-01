@@ -1,9 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import rentalClass from "../serives/rentalClass";
 
 export default function CarRentalForm() {
   const [carType, setCarType] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const [rentalClasses, setRentalClasses] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+        const data = await rentalClass.getList();
+        setRentalClasses(data);
+    }
+    fetchData();
+  }, []);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6 bg-gray-50 min-h-[80vh] font-sans container py-20">
@@ -20,10 +30,13 @@ export default function CarRentalForm() {
               onChange={(e) => setCarType(e.target.value)}
               className="w-full border rounded px-3 py-2"
             >
-              <option value="">Выберите тип</option>
-              <option value="econom">Эконом</option>
-              <option value="comfort">Комфорт</option>
-              <option value="business">Бизнес</option>
+              {
+                rentalClasses?.map(value => (
+                    <option key={value.id}>
+                        {value.name}
+                    </option>
+                ))
+              }
             </select>
           </div>
 
@@ -37,7 +50,6 @@ export default function CarRentalForm() {
             />
           </div>
 
-          {/* B. Вернуть авто */}
           <div>
             <p className="font-semibold text-lg mb-2">B. Вернуть авто</p>
             <label className="block text-sm text-gray-600 mb-1">Дата конца аренды</label>

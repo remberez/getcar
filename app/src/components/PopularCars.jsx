@@ -1,38 +1,7 @@
 import { useEffect, useState } from "react";
 import carService from "../serives/cars";
-import { API_BASE_URL } from "../serives";
 
 export default function PopularCars() {
-    // const cars = [
-    //   {
-    //     name: "Аренда KIA Rio в Саратове",
-    //     image: "/cars/kia.png",
-    //     seats: 5,
-    //     volume: "480 л.",
-    //     transmission: "Автоматическая",
-    //     fuel: "Бензин",
-    //     price: "от 2700 руб. сутки",
-    //   },
-    //   {
-    //     name: "Аренда Hyundai Solaris в Саратове",
-    //     image: "/cars/solaris.png",
-    //     seats: 5,
-    //     volume: "480 л.",
-    //     transmission: "Автоматическая",
-    //     fuel: "Бензин",
-    //     price: "от 2700 руб. сутки",
-    //   },
-    //   {
-    //     name: "Аренда Toyota Camry в Саратове",
-    //     image: "/cars/camry.png",
-    //     seats: 5,
-    //     volume: "480 л.",
-    //     transmission: "Автоматическая",
-    //     fuel: "Бензин",
-    //     price: "от 6600 руб. сутки",
-    //   },
-    // ];
-
     const [cars, setCars] = useState([]);
 
     useEffect(() => {

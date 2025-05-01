@@ -85,3 +85,22 @@ class TransmissionReadSchema(TransmissionBaseSchema):
 
     class Config:
         from_attributes = True
+
+
+class CarBodyBaseSchema(BaseModel):
+    name: str = Field(..., max_length=32)
+
+
+class CarBodyCreateSchema(CarBodyBaseSchema):
+    pass
+
+
+class CarBodyUpdateSchema(BaseModel):
+    name: str | None = Field(None, max_length=32)
+
+
+class CarBodyReadSchema(CarBodyBaseSchema):
+    id: int
+
+    class Config:
+        from_attributes = True

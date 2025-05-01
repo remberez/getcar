@@ -131,3 +131,19 @@ class EngineTypeReadSchema(EngineTypeBaseSchema):
 
     class Config:
         from_attributes = True
+
+
+class DriveTypeBaseSchema(BaseModel):
+    name: str = Field(max_length=32, description="Название типа привода")
+
+
+class DriveTypeReadSchema(DriveTypeBaseSchema):
+    id: int = Field(description="Идентификатор типа привода")
+
+
+class DriveTypeCreateSchema(DriveTypeBaseSchema):
+    ...
+
+
+class DriveTypeUpdateSchema(DriveTypeBaseSchema):
+    ...

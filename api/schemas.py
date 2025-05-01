@@ -185,6 +185,12 @@ class CarUpdateSchema(BaseModel):
 
 class CarReadSchema(CarBaseSchema):
     id: int
+    car_brand: CarBrandReadSchema
+    transmission: TransmissionReadSchema
+    body: CarBodyReadSchema
+    engine_type: EngineTypeReadSchema
+    drive: DriveTypeReadSchema
+    rental_class: RentalClassReadSchema
     model_config = ConfigDict(from_attributes=True)
 
 

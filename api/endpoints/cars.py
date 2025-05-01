@@ -4,6 +4,8 @@ from sqlalchemy.future import select
 from typing import Annotated, List, Optional
 from decimal import Decimal
 
+from sqlalchemy.orm import selectinload
+
 from models import (
     CarModel, UserRoles, RentalClassModel, DriveTypeModel,
     EngineTypeModel, CarBodyModel, TransmissionModel, CarBrand
@@ -77,7 +79,14 @@ async def get_all_cars(
         limit: int = Query(100, le=1000, description="Лимит записей"),
         offset: int = Query(0, ge=0, description="Смещение")
 ):
-    query = select(CarModel)
+    query = select(CarModel).options(
+        selectinload(CarModel.car_brand),
+        selectinload(CarModel.transmission),
+        selectinload(CarModel.body),
+        selectinload(CarModel.engine_type),
+        selectinload(CarModel.drive),
+        selectinload(CarModel.rental_class),
+    )
 
     if brand_id:
         query = query.where(CarModel.car_brand_id == brand_id)
@@ -106,6 +115,14 @@ async def get_car(
 ):
     result = await session.execute(
         select(CarModel).where(CarModel.id == car_id)
+        .options(
+            selectinload(CarModel.car_brand),
+            selectinload(CarModel.transmission),
+            selectinload(CarModel.body),
+            selectinload(CarModel.engine_type),
+            selectinload(CarModel.drive),
+            selectinload(CarModel.rental_class),
+        )
     )
     car = result.scalars().first()
     if not car:

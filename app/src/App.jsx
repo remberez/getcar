@@ -3,6 +3,7 @@ import Layout from "./components/Layout"
 import MainPage from "./pages/MainPage"
 import SearchPage from "./pages/SearchPage"
 import LoginPage from "./pages/LoginPage"
+import ProfilePage from "./pages/ProfilePage"
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <Route index element={<MainPage/>} />
         <Route path="/s" element={<SearchPage/>}/>
         <Route path="/login" element={<LoginPage/>} />
+        <Route path="/profile" element={<ProfilePage/>}/>
       </Route>
     </Routes>
   )

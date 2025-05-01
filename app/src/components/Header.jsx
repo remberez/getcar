@@ -18,7 +18,11 @@ const Header = () => {
     <header className="bg-[#F5F5F5] border-b border-[#E0E0E0]">
       <div className="container flex justify-between items-center py-4">
         <div className="flex items-center gap-4">
-          <h1 className="text-2xl font-bold text-[#333333]">GetCar</h1>
+          <h1 className="text-2xl font-bold text-[#333333]">
+            <Link to={"/"}>
+              GetCar
+            </Link>
+          </h1>
           <div className="text-[#666666] text-sm">
             <div className="flex gap-2">
               <span>+7 917 100-00-50</span>

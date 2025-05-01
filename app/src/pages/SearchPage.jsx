@@ -14,9 +14,15 @@ const SearchPage = () => {
 
         fetchData();
     }, [])
+
+    async function onFilterChange(category) {
+        const data = await carService.getAllCars({ category_id: category.id });
+        setCarList(data);
+    }
+
     return (
         <>
-            <CarCategoryFilter/>
+            <CarCategoryFilter onChange={onFilterChange}/>
             <CarCardList carList={carList}/>
         </>
     )

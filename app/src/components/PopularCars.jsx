@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import carService from "../serives/cars";
+import { Link } from "react-router-dom";
 
 export default function PopularCars() {
     const [cars, setCars] = useState([]);
@@ -35,9 +36,9 @@ export default function PopularCars() {
           ))}
         </div>
         <div className="mt-8 text-center">
-          <button className="bg-red-600 text-white px-6 py-2 rounded-full hover:bg-red-700 transition">
+          <Link to={"/s"} className="bg-red-600 text-white px-6 py-2 rounded-full hover:bg-red-700 transition">
             Посмотреть весь автопарк
-          </button>
+          </Link>
         </div>
       </div>
     );

@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import rentalClass from "../serives/rentalClass";
+import granta from "../assets/granta.jpg";
+import mazda from "../assets/mazda.webp";
+import rols from "../assets/rols.jpg";
 
 export default function CarRentalForm() {
   const [carType, setCarType] = useState("");
@@ -71,21 +74,45 @@ export default function CarRentalForm() {
       </div>
 
       <div className="grid gap-6">
-        <div className="grid grid-cols-2 gap-4">
-          <div className="bg-white rounded-xl shadow p-4 text-center">
-            <p className="text-xl font-bold">Эконом</p>
-            <p className="text-red-600 font-semibold">от 1800 ₽/сутки</p>
+      <div className="grid grid-cols-2 gap-4">
+        <div className="bg-white rounded-xl shadow p-4 text-center flex flex-col items-center">
+          <div className="w-full h-40 mb-4 overflow-hidden rounded-lg">
+            <img
+              src={granta}
+              className="w-full h-full object-cover"
+              alt="Эконом"
+            />
           </div>
-          <div className="bg-white rounded-xl shadow p-4 text-center">
-            <p className="text-xl font-bold">Комфорт</p>
-            <p className="text-red-600 font-semibold">от 2100 ₽/сутки</p>
-          </div>
+          <p className="text-xl font-bold">Эконом</p>
+          <p className="text-red-600 font-semibold">от 1800 ₽/сутки</p>
         </div>
-        <div className="bg-white rounded-xl shadow p-4 text-center">
-          <p className="text-xl font-bold">Бизнес</p>
-          <p className="text-red-600 font-semibold">от 6600 ₽/сутки</p>
+
+        <div className="bg-white rounded-xl shadow p-4 text-center flex flex-col items-center">
+          <div className="w-full h-40 mb-4 overflow-hidden rounded-lg">
+            <img
+              src={mazda}
+              className="w-full h-full object-cover"
+              alt="Комфорт"
+            />
+          </div>
+          <p className="text-xl font-bold">Комфорт</p>
+          <p className="text-red-600 font-semibold">от 2100 ₽/сутки</p>
         </div>
       </div>
+
+      <div className="bg-white rounded-xl shadow p-4 text-center flex flex-col items-center">
+        <div className="w-full h-64 mb-4 overflow-hidden rounded-lg">
+          <img
+            src={rols}
+            className="w-full h-full object-cover"
+            alt="Бизнес"
+          />
+        </div>
+        <p className="text-xl font-bold">Бизнес</p>
+        <p className="text-red-600 font-semibold">от 6600 ₽/сутки</p>
+      </div>
+      </div>
+
     </div>
   );
 }

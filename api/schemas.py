@@ -186,3 +186,19 @@ class CarUpdateSchema(BaseModel):
 class CarReadSchema(CarBaseSchema):
     id: int
     model_config = ConfigDict(from_attributes=True)
+
+
+class CarImageBaseSchema(BaseModel):
+    image_url: str = Field(..., description="URL изображения")
+    car_id: int = Field(..., description="ID автомобиля")
+
+
+class CarImageCreateSchema(CarImageBaseSchema):
+    pass
+
+
+class CarImageReadSchema(CarImageBaseSchema):
+    id: int
+
+    class Config:
+        from_attributes = True

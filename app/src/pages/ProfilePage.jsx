@@ -44,7 +44,7 @@ const ProfilePage = observer(() => {
           try {
             await userService.updateProfile(values);
             setStatus("Профиль обновлён");
-            await authStore.setUser(); // Обновим локальные данные
+            await authStore.setUser();
           } catch (error) {
             setStatus("Ошибка при обновлении профиля");
             console.error(error);
@@ -61,7 +61,6 @@ const ProfilePage = observer(() => {
                 type="email"
                 name="email"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-100"
-                disabled
               />
             </div>
 
@@ -85,8 +84,15 @@ const ProfilePage = observer(() => {
 
             <div>
               <label className="block text-lg font-medium text-gray-700 mb-1">Баланс</label>
-              <div className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-800">
-                {user.balance} ₽
+              <div className="flex gap-x-3 items-center">
+                <div className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-800">
+                    {user.balance} ₽
+                </div>
+                <Link
+                    to={"/update-balance"} 
+                    className="text-2xl bg-green-500 h-full w-12 h-11 text-center flex items-center justify-center rounded-lg text-white hover:bg-green-600 transition delay-50">
+                    +
+                </Link>
               </div>
             </div>
 

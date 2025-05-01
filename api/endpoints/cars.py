@@ -76,6 +76,7 @@ async def get_all_cars(
         model: Optional[str] = Query(None, description="Фильтр по модели (частичное совпадение)"),
         min_price: Optional[Decimal] = Query(None, description="Минимальная цена аренды"),
         max_price: Optional[Decimal] = Query(None, description="Максимальная цена аренды"),
+        category_id: Optional[int] = Query(None, description="Фильтра по ID категории"),
         limit: int = Query(100, le=1000, description="Лимит записей"),
         offset: int = Query(0, ge=0, description="Смещение")
 ):
@@ -97,6 +98,8 @@ async def get_all_cars(
         query = query.where(CarModel.price >= min_price)
     if max_price:
         query = query.where(CarModel.price <= max_price)
+    if category_id:
+        query = query.where(CarModel.rental_class_id == category_id)
 
     query = query.limit(limit).offset(offset)
 

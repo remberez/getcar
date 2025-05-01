@@ -122,6 +122,8 @@ class CarModel(Base, IntegerIDMixin):
     mileage: Mapped[int]
     price: Mapped[Decimal] = mapped_column(Numeric(12, 2))
     rental_class_id: Mapped[int] = mapped_column(ForeignKey("rental_class.id"))
+    number_of_seats: Mapped[int] = mapped_column(nullable=True)
+    trunk_volume: Mapped[int] = mapped_column(nullable=True)
 
     car_brand: Mapped["CarBrand"] = relationship(back_populates="cars")
     transmission: Mapped["TransmissionModel"] = relationship(back_populates="cars")

@@ -4,6 +4,7 @@ from decimal import Decimal
 from typing import Optional
 
 from fastapi_users import schemas
+from pydantic import BaseModel
 
 from models import UserRoles
 
@@ -26,3 +27,21 @@ class UserUpdateSchema(schemas.BaseUserUpdate):
     phone: Optional[str] = None
     full_name: Optional[str] = None
 
+
+class RentalClassBaseSchema(BaseModel):
+    name: str
+
+
+class RentalClassCreateSchema(RentalClassBaseSchema):
+    pass
+
+
+class RentalClassUpdateSchema(BaseModel):
+    name: str | None = None
+
+
+class RentalClassReadSchema(RentalClassBaseSchema):
+    id: int
+
+    class Config:
+        from_attributes = True

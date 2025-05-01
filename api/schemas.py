@@ -45,3 +45,22 @@ class RentalClassReadSchema(RentalClassBaseSchema):
 
     class Config:
         from_attributes = True
+
+
+class CarBrandBaseSchema(BaseModel):
+    name: str
+
+
+class CarBrandCreateSchema(CarBrandBaseSchema):
+    pass
+
+
+class CarBrandUpdateSchema(BaseModel):
+    name: str | None = None
+
+
+class CarBrandReadSchema(CarBrandBaseSchema):
+    id: int
+
+    class Config:
+        from_attributes = True

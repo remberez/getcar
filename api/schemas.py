@@ -4,7 +4,7 @@ from decimal import Decimal
 from typing import Optional
 
 from fastapi_users import schemas
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 from models import UserRoles
 
@@ -60,6 +60,27 @@ class CarBrandUpdateSchema(BaseModel):
 
 
 class CarBrandReadSchema(CarBrandBaseSchema):
+    id: int
+
+    class Config:
+        from_attributes = True
+
+
+class TransmissionBaseSchema(BaseModel):
+    name: str = Field(max_length=32)
+
+
+class TransmissionCreateSchema(TransmissionBaseSchema):
+    pass
+
+
+class TransmissionUpdateSchema(BaseModel):
+    """Схема для обновления трансмиссии"""
+    name: str | None = Field(None, max_length=32)
+
+
+class TransmissionReadSchema(TransmissionBaseSchema):
+    """Схема для чтения данных трансмиссии"""
     id: int
 
     class Config:

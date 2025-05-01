@@ -101,6 +101,14 @@ class DriveTypeModel(Base, IntegerIDMixin):
     cars: Mapped[list["CarModel"]] = relationship(back_populates="drive")
 
 
+class RentalClassModel(Base, IntegerIDMixin):
+    __tablename__ = "rental_class"
+
+    name: Mapped[str] = mapped_column(String(32))
+
+    cars: Mapped[list["CarModel"]] = relationship(back_populates="rental_class")
+
+
 class CarModel(Base, IntegerIDMixin):
     __tablename__ = "car"
 
@@ -113,6 +121,7 @@ class CarModel(Base, IntegerIDMixin):
     drive_id: Mapped[int] = mapped_column(ForeignKey("drive_type.id", ondelete="CASCADE"))
     mileage: Mapped[int]
     price: Mapped[Decimal] = mapped_column(Numeric(12, 2))
+    rental_class_id: Mapped[int] = mapped_column(ForeignKey("rental_class.id"))
 
     car_brand: Mapped["CarBrand"] = relationship(back_populates="cars")
     transmission: Mapped["TransmissionModel"] = relationship(back_populates="cars")
@@ -122,6 +131,7 @@ class CarModel(Base, IntegerIDMixin):
     images: Mapped[list["CarImageModel"]] = relationship(back_populates="car")
     reviews: Mapped[list["CarReviewModel"]] = relationship(back_populates="car")
     bookings: Mapped[list["Booking"]] = relationship(back_populates="car")
+    rental_class: Mapped["RentalClassModel"] = relationship(back_populates="cars")
 
 
 class CarImageModel(Base, IntegerIDMixin):

@@ -130,7 +130,7 @@ class CarModel(Base, IntegerIDMixin):
     body: Mapped["CarBodyModel"] = relationship(back_populates="cars")
     engine_type: Mapped["EngineTypeModel"] = relationship(back_populates="cars")
     drive: Mapped["DriveTypeModel"] = relationship(back_populates="cars")
-    images: Mapped[list["CarImageModel"]] = relationship(back_populates="car")
+    images: Mapped[list["CarImageModel"]] = relationship(back_populates="car", cascade="all, delete-orphan")
     reviews: Mapped[list["CarReviewModel"]] = relationship(back_populates="car")
     bookings: Mapped[list["Booking"]] = relationship(back_populates="car")
     rental_class: Mapped["RentalClassModel"] = relationship(back_populates="cars")
@@ -140,7 +140,7 @@ class CarImageModel(Base, IntegerIDMixin):
     __tablename__ = "car_image"
 
     image_url: Mapped[str] = mapped_column(String(128))
-    car_id: Mapped[int] = mapped_column(ForeignKey("car.id"))
+    car_id: Mapped[int] = mapped_column(ForeignKey("car.id", ondelete="CASCADE"))
 
     car: Mapped["CarModel"] = relationship(back_populates="images")
 

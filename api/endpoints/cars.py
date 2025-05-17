@@ -60,8 +60,20 @@ async def create_car(
     new_car = CarModel(**car_data.model_dump())
     session.add(new_car)
     await session.commit()
-    await session.refresh(new_car)
-    return new_car
+    result = await session.execute(
+        select(CarModel).where(CarModel.id == new_car.id)
+        .options(
+            selectinload(CarModel.car_brand),
+            selectinload(CarModel.transmission),
+            selectinload(CarModel.body),
+            selectinload(CarModel.engine_type),
+            selectinload(CarModel.drive),
+            selectinload(CarModel.rental_class),
+            selectinload(CarModel.images)
+        )
+    )
+    car = result.scalars().first()
+    return car
 
 
 @router.get(
@@ -203,7 +215,7 @@ async def delete_car(
     await check_admin(user)
 
     result = await session.execute(
-        select(CarModel).where(CarModel.id == car_id)
+        select(CarModel).where(CarModel.id == car_id).options(selectinload(CarModel.bookings))
     )
     car = result.scalars().first()
     if not car:

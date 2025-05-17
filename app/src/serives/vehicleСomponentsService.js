@@ -2,133 +2,133 @@ import { api } from ".";
 
 class RentalClassService {
   async getAll() {
-    return api.get("/rental-classes/");
+    return (await api.get("/rental-classes/")).data;
   }
 
   async getById(id) {
-    return api.get(`/rental-classes/${id}`);
+    return (await api.get(`/rental-classes/${id}`)).data;
   }
 
   async create(payload) {
-    return api.post("/rental-classes/", payload);
+    return (await api.post("/rental-classes/", payload)).data;
   }
 
   async update(id, payload) {
-    return api.patch(`/rental-classes/${id}`, payload);
+    return (await api.patch(`/rental-classes/${id}`, payload)).data;
   }
 
   async delete(id) {
-    return api.delete(`/rental-classes/${id}`);
+    return (await api.delete(`/rental-classes/${id}`)).data;
   }
 }
 
 class CarBrandService {
   async getAll() {
-    return api.get("/car-brands/");
+    return (await api.get("/car-brands/")).data;
   }
 
   async getById(id) {
-    return api.get(`/car-brands/${id}`);
+    return (await api.get(`/car-brands/${id}`)).data;
   }
 
   async create(payload) {
-    return api.post("/car-brands/", payload);
+    return (await api.post("/car-brands/", payload)).data;
   }
 
   async update(id, payload) {
-    return api.patch(`/car-brands/${id}`, payload);
+    return (await api.patch(`/car-brands/${id}`, payload)).data;
   }
 
   async delete(id) {
-    return api.delete(`/car-brands/${id}`);
+    return (await api.delete(`/car-brands/${id}`)).data;
   }
 }
 
 class TransmissionService {
   async getAll() {
-    return api.get("/transmissions/");
+    return (await api.get("/transmissions/")).data;
   }
 
   async getById(id) {
-    return api.get(`/transmissions/${id}`);
+    return (await api.get(`/transmissions/${id}`)).data;
   }
 
   async create(payload) {
-    return api.post("/transmissions/", payload);
+    return (await api.post("/transmissions/", payload)).data;
   }
 
   async update(id, payload) {
-    return api.patch(`/transmissions/${id}`, payload);
+    return (await api.patch(`/transmissions/${id}`, payload)).data;
   }
 
   async delete(id) {
-    return api.delete(`/transmissions/${id}`);
+    return (await api.delete(`/transmissions/${id}`)).data;
   }
 }
 
 class CarBodyService {
   async getAll() {
-    return api.get("/car-bodies/");
+    return (await api.get("/car-bodies/")).data;
   }
 
   async getById(id) {
-    return api.get(`/car-bodies/${id}`);
+    return (await api.get(`/car-bodies/${id}`)).data;
   }
 
   async create(payload) {
-    return api.post("/car-bodies/", payload);
+    return (await api.post("/car-bodies/", payload)).data;
   }
 
   async update(id, payload) {
-    return api.patch(`/car-bodies/${id}`, payload);
+    return (await api.patch(`/car-bodies/${id}`, payload)).data;
   }
 
   async delete(id) {
-    return api.delete(`/car-bodies/${id}`);
+    return (await api.delete(`/car-bodies/${id}`)).data;
   }
 }
 
 class EngineTypeService {
   async getAll() {
-    return api.get("/engine-types/");
+    return (await api.get("/engine-types/")).data;
   }
 
   async getById(id) {
-    return api.get(`/engine-types/${id}`);
+    return (await api.get(`/engine-types/${id}`)).data;
   }
 
   async create(payload) {
-    return api.post("/engine-types/", payload);
+    return (await api.post("/engine-types/", payload)).data;
   }
 
   async update(id, payload) {
-    return api.patch(`/engine-types/${id}`, payload);
+    return (await api.patch(`/engine-types/${id}`, payload)).data;
   }
 
   async delete(id) {
-    return api.delete(`/engine-types/${id}`);
+    return (await api.delete(`/engine-types/${id}`)).data;
   }
 }
 
 class DriveTypeService {
   async getAll() {
-    return api.get("/drive-type/");
+    return (await api.get("/drive-type/")).data;
   }
 
   async getById(id) {
-    return api.get(`/drive-type/${id}`);
+    return (await api.get(`/drive-type/${id}`)).data;
   }
 
   async create(payload) {
-    return api.post("/drive-type/", payload);
+    return (await api.post("/drive-type/", payload)).data;
   }
 
   async update(id, payload) {
-    return api.patch(`/drive-type/${id}`, payload);
+    return (await api.patch(`/drive-type/${id}`, payload)).data;
   }
 
   async delete(id) {
-    return api.delete(`/drive-type/${id}`);
+    return (await api.delete(`/drive-type/${id}`)).data;
   }
 }
 

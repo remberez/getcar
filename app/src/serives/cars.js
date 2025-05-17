@@ -20,13 +20,31 @@ class CarService {
         }
     }
 
-    async deleteCar({id}) {
+    async deleteCar(id) {
         try {
             const response = await api.delete(`/cars/${id}`);
             return response;
         } catch (error) {
             console.error(error);
         }
+    }
+
+    async createCar({car_brand_id, model, transmission_id, body_id, year_of_issue, engine_type_id, drive_id, mileage, price, rental_class_id, number_of_seats, trunk_volume}) {
+        const response = await api.post("/cars/", {
+            car_brand_id,
+            model, 
+            transmission_id,
+            body_id,
+            year_of_issue,
+            engine_type_id,
+            drive_id,
+            mileage, 
+            price, 
+            rental_class_id, 
+            number_of_seats,
+            trunk_volume,
+        })
+        return response.data;
     }
 }
 

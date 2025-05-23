@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import CarBookingModal from './CarBookingModal';
 
 const CarCard = ({ car }) => {
   const year = new Date(car.year_of_issue).getFullYear();
@@ -15,6 +16,8 @@ const CarCard = ({ car }) => {
   const price4Days = basePrice * 0.96;
   const price11Days = basePrice * 0.92;
   const price21Days = basePrice * 0.88;
+
+  const [modalOpen, setModalOpen] = useState(false);
 
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden">
@@ -84,7 +87,10 @@ const CarCard = ({ car }) => {
             Чем больше срок аренды авто, тем ниже стоимость аренды за сутки
           </p>
 
-          <button className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded-lg transition duration-200">
+          <button
+            className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded-lg transition duration-200"
+            onClick={() => setModalOpen(true)}
+          >
             АРЕНДОВАТЬ
           </button>
         </div>
@@ -106,6 +112,13 @@ const CarCard = ({ car }) => {
           </div>
         </div>
       </div>
+
+      {/* Модальное окно аренды */}
+      <CarBookingModal
+        car={car}
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+      />
     </div>
   );
 };

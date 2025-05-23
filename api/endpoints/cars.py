@@ -186,14 +186,14 @@ async def update_car(
 
     for field, model in related_entities.items():
         result = await session.execute(select(model).where(model.id == getattr(car_data, field)))
-        if not result.scalars().first():
+        if not result.scalars().first() and getattr(car_data, field) is not None:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail=f"{model} с указанным ID не существует"
             )
 
     # Обновляем только переданные поля
-    for key, value in car_data.model_dump(exclude_unset=True).items():
+    for key, value in car_data.model_dump(exclude_none=True).items():
         setattr(car, key, value)
 
     await session.commit()

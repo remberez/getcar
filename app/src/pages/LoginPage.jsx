@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import authStore from "../store/authStore";
 import authService from "../serives/authService";
 
@@ -67,6 +67,9 @@ const LoginPage = () => {
         >
           Войти
         </button>
+        <div className="mt-2 text-center">
+          Нет аккаунта? <Link to="/register" className="text-red-600 hover:underline">Зарегистрируйтесь</Link>
+        </div>
       </form>
     </div>
   );

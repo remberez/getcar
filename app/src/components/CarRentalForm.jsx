@@ -3,6 +3,7 @@ import rentalClass from "../serives/rentalClass";
 import granta from "../assets/granta.jpg";
 import mazda from "../assets/mazda.webp";
 import rols from "../assets/rols.jpg";
+import { Link } from "react-router-dom";
 
 export default function CarRentalForm() {
   const [carType, setCarType] = useState("");
@@ -66,9 +67,9 @@ export default function CarRentalForm() {
 
           <div className="flex space-x-2 pt-2">
             <button className="border px-4 py-2 rounded hover:bg-gray-100">Аренда в 1 клик</button>
-            <button className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">
+            <Link className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700" to="/s">
               Подобрать авто
-            </button>
+            </Link>
           </div>
         </div>
       </div>

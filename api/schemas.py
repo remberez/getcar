@@ -210,3 +210,33 @@ class CarReadSchema(CarBaseSchema):
     rental_class: RentalClassReadSchema
     images: list[CarImageReadSchema]
     model_config = ConfigDict(from_attributes=True)
+
+
+class BookingBaseSchema(BaseModel):
+    car_id: int
+    date_start: datetime
+    date_end: datetime
+
+
+class BookingCreate(BaseModel):
+    car_id: int
+    date_start: datetime
+    date_end: datetime
+
+
+class BookingUpdate(BaseModel):
+    car_id: Optional[int] = None
+    date_start: Optional[datetime] = None
+    date_end: Optional[datetime] = None
+
+
+class BookingRead(BaseModel):
+    id: int
+    user_id: int | None
+    car_id: int | None
+    date_start: datetime
+    date_end: datetime
+    car: CarReadSchema | None = None  # Добавляем вложенную машину
+
+    class Config:
+        from_attributes = True

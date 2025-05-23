@@ -27,6 +27,16 @@ class AuthService {
             console.error(error);
         }
     }
+
+    async register({ email, password, phone, full_name }) {
+        const response = await api.post("/auth/register", {
+            email,
+            password,
+            phone,
+            full_name,
+        });
+        return response.data;
+    }
 }
 
 const authService = new AuthService();
